@@ -1,0 +1,113 @@
+Fluxo angular:
+
+
+*** angular cli:
+npm install -g @angular/cli
+Generating and serving an Angular project via a development server 
+Create and run a new project:
+
+ng new my-project
+cd my-project
+ng serve (ng serve --port 4201 / para alterar a porta)
+* parar o servidor : ctrl+c
+** importar projeto
+npm intall na pasta raiz
+
+**criar componente
+ng generate component [name] generates a component (ng g c [name])
+
+1)dentro da pasta app vc cria os componentes.
+ex: meu.component.ts (typescript)
+dentro do componente usa o decorator @Component
+e dentro dele informa-se o selector,o template (html)
+e também o template de css.
+e exporta a classe.
+
+2)dentro de app.module.ts importa o component
+e dentro do decorator @NgModule, dentro de declarations
+adiciona o nome do component.
+*app.module.ts faz tudo, tudo o que tiver que ser importado, ou ser usado
+tem que ser colocado aqui
+
+3)dentro de app.component.html usa-se o selector do componente.
+
+*** debugar
+no navegador F12, sources -> webpack:// ->vai ter a pasta do usuario
+ ** Augury extensao do chrome
+
+*** instalar bibliotecas de terceiro:
+ex: bootstrap
+navegar até a pasta do projeto e : npm install [nome] --save
+
+depois ir até o arquivo angular-cli.json
+e adicionar o caminho do arquivo.
+ex: bootstrap -> styles ->../node_modules/bootstrap/dist/css/bootstrap.min.css
+* toda vez que alterar o arquivo angular-cli.json
+para o servidor e subir novamente.
+
+ex:lodash
+1)npm install lodash --save
+depois importar no arquivo component que quiser usar.
+ex: import 'lodash';
+declare var _:any;
+(outra maneira seria entrar no arquivo angular-cli.json,
+e adicionar em scripts)
+2)npm install --save @types/lodash
+e importar a funcao que deseja usar:
+import  {random} from 'lodash';
+
+*** usar services:
+1-criar manualmente
+criar a classe com export, e importá-la e adicioná-la em app.module.ts no array "providers"
+ex: providers: [CharactersService]
+2-criar usando angular-cli
+ng generate service[name] generates a service(ng g s [name])
+3-injetar services em services
+adicionar um construtor no service que recebera o service, usar o decorator @Injectable(),
+e importar de import {Injectable} from '@angular/core'
+além de claro adicionar em providers
+
+*** usar routers:
+1)adicionar em app.module, dentro do array de imports, RouterModule
+e importar de @angular/router.
+2)criar um array com as rotas incluindo : {path:'caminho sem a barra',component:nomeComponente}
+ex: const routes=[{path:'caminho',component:nomeComponente}]
+*obs:sempre deixar em ultima posicao um valor default caso acesse uma rota
+que nao existe
+ex: {path:'**',redirecTo:'/'}
+3)em imports novamente registrar as rotas no modulo do angular
+ex: RouterModule.forRoot(routes)
+4)abrir o template principal app.component.html e adicionar a diretiva do router
+ex: <router-outlet></router-outlet>
+5)e no componente que contem os links que serao usados para fazer o roteamento,adicionar
+ex: [routerLink]="'/(ou caminho do path, igual esta no vetor de rotas)'"
+ou routerLink="/(ou caminho do path, igual esta no vetor de rotas)"
+6) deixar uma rota com o class active, adicionar no link o seguinte:
+ex: <a class="nav-link" 
+
+*** child routes
+	routerLink="/"
+    
+	routerLinkActive="active"
+    
+	[routerLinkActiveOptions]="{exact:true}">Home</a>
+7) child routes é chato kk
+
+*** HTTP
+1)importar do pacote import {Http} from '@angular/http';
+e injetar no construtor do componente ou servico que se deseja usar.(não esquecer do decorator @Injectable)
+2)adicionar em imports, o modulo http : HttpModule (e importar tbm...)
+3)sempre se atentar ao jeito reativo... buscar dados de maneira assincrona, criando uma variavel subject
+de retorno, e invocar "next()" para notificar.
+do outro lado, usar uma subscription, e usar a variavel subject e dar subscribe para receber a mudanca
+
+*** deploy
+1)otimizao:
+criar modulos seperados, e especialistas em uma funcao
+* usar o build do angular cli: parar a aplicacao e rodar :
+ng build --prod (path raiz /)
+* para alterar o path raiz rodar :
+ng build --prod --base-href /pathDesejado/
+esse comando já transpila o typescript para javascript
+2)após o processo rodar, será criado uma nova pasta chamada "dist" dentro da pagina do projeto, com os 
+arquivos prontos para deploy

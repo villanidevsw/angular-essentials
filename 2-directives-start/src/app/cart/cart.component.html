@@ -1,0 +1,14 @@
+<input type="text" [(ngModel)]="newItem">
+<!-- <button (click)="onAddItem()" class="btn btn-primary">Add Item</button><!-->
+<!-->diretivas de classe para aplicar classes css em elementos</!-->
+<!-->diretiva de atributo</!-->
+<button (click)="onAddItem()" class="btn"
+[ngClass]="{'btn-primary': newItem !== '','btn-default':newItem === ''}">Add Item</button>
+<!-->diretivas estruturais que mexem no DOM iniciam com * (ngIf,ngFor)</!-->
+<p *ngIf="newItem === ''">Digite um valor!</p>
+<hr>
+<ul class="list-group">
+  <li class="list-group-item"
+  *ngFor="let item of items; let i = index"
+  [ngStyle]="{'background-color':i%2===0 ? 'yellow' : 'blue'}">{{item}}</li>
+</ul>
