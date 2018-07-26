@@ -9,16 +9,16 @@ import { CharactersService } from '../characters.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit,OnDestroy {
-  //@Input() characters;
-  //usando services nao precisa mais desse metodo
-  //@Output() sideAssigned = new EventEmitter<{name:string,side:string}>();
+export class ListComponent implements OnInit, OnDestroy {
+  // @Input() characters;
+  // usando services nao precisa mais desse metodo
+  // @Output() sideAssigned = new EventEmitter<{name:string,side:string}>();
 
   characters = [];
   activedRoute: ActivatedRoute;
   service: CharactersService;
   loadedSide = 'all';
-  subscription : Subscription;
+  subscription: Subscription;
 
   constructor(activedRoute: ActivatedRoute, service: CharactersService) {
     this.activedRoute = activedRoute;
@@ -27,9 +27,9 @@ export class ListComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit() {
-     //eh executado sempre que o angular inicia um componente
-    //aqui iremos ficar escutando as trocas de rotas
-    //padrao observer
+     // eh executado sempre que o angular inicia um componente
+    // aqui iremos ficar escutando as trocas de rotas
+    // padrao observer
     this.activedRoute.params.subscribe((params) => {
       //aqui recupera os parametros da rotas
       // e a variavel virá igual foi definido nas rotas
@@ -47,10 +47,10 @@ export class ListComponent implements OnInit,OnDestroy {
 
     });
 
-    
+
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     //o angular executa esse método sempre que o angular
     //vai destruir um componente
     //aqui nós saimos da subscription

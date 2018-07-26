@@ -10,9 +10,15 @@ que lida com o submit do form
     </div>
     <div class="form-group">
         <label for="side">Pick a Side</label>
-        <select class="form-control" name="side" id="side" ngModel>
-            <option *ngFor="let option of availableSides" [value]="option.value">
-            {{option.display}}
+        <select class="form-control"
+          name="side"
+          id="side"
+          [(ngModel)]="selectedChar"
+          (ngModelChange)="onSelectSide($event)">
+          <!-- (change)="onSelectSide($event)" envia o evento -->
+            <option *ngFor="let option of availableSides"
+              [value]="option.value">
+              {{option.display}}
             </option>
         </select>
     </div>
